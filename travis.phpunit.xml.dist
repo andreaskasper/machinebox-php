@@ -18,7 +18,7 @@
         </testsuite>
     </testsuites>
     <listeners>
-        <listener class="machinebox-php\Test\DebugLogTestListener" />
+        <listener class="machinebox\Test\DebugLogTestListener" />
     </listeners>
     <groups>
         <exclude>
