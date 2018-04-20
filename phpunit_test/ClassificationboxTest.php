@@ -20,7 +20,7 @@ final class ClassificationboxTest extends TestCase {
 	public function test0() {
 		$a = 0;
 		while (true) {
-			$str = file_get_contents("http://127.0.0.1:8081/info");
+			$str = @file_get_contents("http://127.0.0.1:8081/info");
 		if (strpos($str, "}") !== FALSE) {
 			$this->assertTrue(true);
 			return;
