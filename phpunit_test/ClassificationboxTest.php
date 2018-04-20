@@ -9,6 +9,8 @@
 namespace machinebox\Test;
 
 use PHPUnit\Framework\TestCase;
+use machinebox\inputlist;
+
 
 /**
  * Maschinebox.io Machinebox-Test
