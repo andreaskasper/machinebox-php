@@ -10,10 +10,12 @@ class classificationbox {
 	
 	private $boxurl = null;
 	private $model_id = null;
+	
+	public $verbose = false;
 
 	public function __construct($boxurl, $model_id = null) {
 		$this->boxurl = $boxurl;
-		if ($model_id != null) $this->useModel($model_id);
+		if ($model_id != null) $this->usemodel($model_id);
 	}
 	
 	public function usemodel($model_id) {
@@ -33,26 +35,26 @@ class classificationbox {
 		} catch (\Exception $ex) {
 			return false;
 		}
-		$this->useModel($model_id);
+		$this->usemodel($model_id);
 		return true;
 	}
 	
 	public function teach($class = 1, inputlist $inputs = null) {
-		if ($model_id == null) throw new Exception("No Model in use for teaching");
+		if ($this->model_id == null) throw new \Exception("No Model in use for teaching");
 		$w = array();
 		$w["class"] = $class;
-		$w["inputy"] = $inputs;
+		$w["inputy"] = $inputs->toArray();
 		$resp = $this->jsonRequest("POST", "/classificationbox/models/".$this->model_id."/teach", $w);
 		return $resp["success"];
 	}
 	
 	public function predict(inputlist $inputs = null, $limit = 10) {
-		if ($model_id == null) throw new Exception("No Model in use for teaching");
+		if ($this->model_id == null) throw new Exception("No Model in use for prediction");
 		$w = array();
 		$w["limit"] = $limit;
-		$w["inputy"] = $inputs;
-		$resp = $this->jsonRequest("POST", "/classificationbox/models/".$this->model_id."/teach", $w);
-		return $resp["success"];
+		$w["inputy"] = $inputs->toArray();
+		$resp = $this->jsonRequest("POST", "/classificationbox/models/".$this->model_id."/predict", $w);
+		return $resp["classes"];
 	}
 	
 	public function listmodels() {
@@ -87,8 +89,10 @@ class classificationbox {
 		curl_setopt($ch, CURLOPT_CUSTOMREQUEST, $method);
 		if ($data != null) curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($data));
 		curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+		if ($this->verbose) echo($this->boxurl.$path.PHP_EOL.json_encode($data).PHP_EOL);
 		$result = curl_exec($ch);
 		$info = curl_getinfo($ch);
+		if ($this->verbose) echo($info["http_code"]." - ".$result.PHP_EOL);
 		if ($info["http_code"] == 400) throw new \Exception($result);
 		curl_close($ch);
 

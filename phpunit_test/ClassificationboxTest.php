@@ -16,9 +16,28 @@ use PHPUnit\Framework\TestCase;
 final class ClassificationboxTest extends TestCase {
 	
 	public function test1() {
-		$cb = new \machinebox\classificationbox("http://127.0.0.1:8081");
-		$cb->createmodel("test1", "Classificationbox Test", array("blau", "rot", "gelb"));
-		$this->assertTrue(true);
+		try {
+			$box = new \machinebox\classificationbox("http://127.0.0.1:8081");
+			$box->createmodel("sprache01", "Spracherkennung", array("english","deutsch"));
+
+			$box->usemodel("sprache01");
+
+			$input = new inputlist();
+			$input->add("text", "Hallo dies ist ein deutscher Satz.");
+			$box->teach("deutsch", $input);
+
+
+			$input = new inputlist();
+			$input->add("text", "Hello, this is an english sentence.");
+			$box->teach("english", $input);
+
+			$input = new inputlist();
+			$input->add("text", "Welche Sprache hat dieser Satz?");
+			$out = $box->predict($input);
+			$this->assertTrue(true);
+		} catch (\Exception $ex) {
+			$this->assertTrue(false);
+		}
 	}
 	
 }
