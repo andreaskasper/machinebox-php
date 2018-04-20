@@ -5,7 +5,7 @@
  * PHP version 5.5.
  */
 
-namespace machinebox-php\Test;
+namespace machinebox\Test;
 
 class DebugLogTestListener extends \PHPUnit_Framework_BaseTestListener
 {
