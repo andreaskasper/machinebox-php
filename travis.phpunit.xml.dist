@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<phpunit
+         bootstrap="vendor/autoload.php"
+         verbose="true"
+         stopOnError="false"
+         stopOnFailure="false"
+         stopOnIncomplete="false"
+         stopOnSkipped="false"
+         convertErrorsToExceptions="true"
+         convertNoticesToExceptions="true"
+         convertWarningsToExceptions="true"
+         colors="true"
+         forceCoversAnnotation="false"
+         processIsolation="false">
+    <testsuites>
+        <testsuite name="machinebox.io Tests">
+            <directory>./phpunit_test/</directory>
+        </testsuite>
+    </testsuites>
+    <listeners>
+        <listener class="machinebox-php\Test\DebugLogTestListener" />
+    </listeners>
+    <groups>
+        <exclude>
+            <group>languages</group>
+        </exclude>
+    </groups>
+    <filter>
+        <whitelist>
+            <directory suffix=".php">./src</directory>
+        </whitelist>
+    </filter>
+    <logging>
+        <log type="coverage-text" target="php://stdout" showUncoveredFiles="true"/>
+        <log type="coverage-clover" target="build/logs/clover.xml"/>
+        <log type="junit" target="build/logs/junit.xml" logIncompleteSkipped="false"/>
+    </logging>
+</phpunit>

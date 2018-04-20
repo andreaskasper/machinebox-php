@@ -15,7 +15,7 @@ install:
   - composer remove --no-update --no-scripts --dev andreaskasper/machinebox-php
   - composer install
   
-#script: ./vendor/bin/phpunit --configuration ./travis.phpunit.xml.dist
+script: ./vendor/bin/phpunit --configuration ./travis.phpunit.xml.dist
   
 stages:
   - coding-standard
