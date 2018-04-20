@@ -17,12 +17,25 @@ use machinebox\inputlist;
  */
 final class ClassificationboxTest extends TestCase {
 	
+	public function test0() {
+		$a = 0;
+		while (true) {
+			$str = file_get_contents("http://127.0.0.1:8081/info");
+		if (strpos($str, "}") !== FALSE) {
+			$this->assertTrue(true);
+			return;
+			}
+			sleep(2);
+			$a++;
+		if ($a > 100) throw new \Exception("Machinebox hasn't started");
+		}
+	}
 	
 	public function test1() {
 		$str = file_get_contents("http://127.0.0.1:8081/info");
 		$this->assertNotEquals("", $str);
 		$json = json_decode($str, true);
-		$this->asserttRUE($json["success"]);
+		$this->assertTrue($json["success"]);
 		$this->assertEquals("classificationbox", $json["name"]);
 		$this->assertEquals("ready", $json["status"]);
 	}
