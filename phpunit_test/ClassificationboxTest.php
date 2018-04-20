@@ -76,4 +76,13 @@ final class ClassificationboxTest extends TestCase {
 			$this->assertTrue(true);
 	}
 	
+	public function test_inputlist() {
+		$a = new inputlist();
+		$a->add("abc","test");
+		$a->clear();
+		$a->add("abc","test");
+		$b = $a->toArray();
+		$this->assertTrue(true);
+	}
+	
 }
