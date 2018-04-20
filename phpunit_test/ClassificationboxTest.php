@@ -19,6 +19,7 @@ final class ClassificationboxTest extends TestCase {
 	
 	public function test1() {
 			$box = new \machinebox\classificationbox("http://127.0.0.1:8081");
+			$box->verbose = true;
 			$r = $box->createmodel("sprache01", "Spracherkennung", array("english","deutsch"));
 			$this->assertTrue($r);
 			
