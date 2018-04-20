@@ -20,22 +20,30 @@ final class ClassificationboxTest extends TestCase {
 	public function test1() {
 		try {
 			$box = new \machinebox\classificationbox("http://127.0.0.1:8081");
-			$box->createmodel("sprache01", "Spracherkennung", array("english","deutsch"));
+			$r = $box->createmodel("sprache01", "Spracherkennung", array("english","deutsch"));
+			$this->assertTrue($r);
 
 			$box->usemodel("sprache01");
 
 			$input = new inputlist();
 			$input->add("text", "Hallo dies ist ein deutscher Satz.");
-			$box->teach("deutsch", $input);
-
+			$r = $box->teach("deutsch", $input);
+			$this->assertTrue($r);
 
 			$input = new inputlist();
 			$input->add("text", "Hello, this is an english sentence.");
-			$box->teach("english", $input);
+			$r = $box->teach("english", $input);
+			$this->assertTrue($r);
 
 			$input = new inputlist();
 			$input->add("text", "Welche Sprache hat dieser Satz?");
 			$out = $box->predict($input);
+			
+			$this->assertEquals(2, count($out)); //2 Ergebnisse
+			
+			$r = $box->deletemodel("sprache01");
+			$this->assertTrue($r);
+			
 			$this->assertTrue(true);
 		} catch (\Exception $ex) {
 			$this->assertTrue(false);
