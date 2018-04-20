@@ -1,0 +1,33 @@
+{
+    "name": "andreaskasper/machinebox-php",
+    "type": "library",
+    "description": "a php class wrapper for machinebox.io",
+    "authors": [
+        {
+            "name": "Andreas Kasper",
+            "email": "andreas.kasper@goo1.de"
+        }
+    ],
+    "require": {
+        "php": ">=5.4.0",
+        "ext-ctype": "*"
+    },
+    "require-dev": {
+        "friendsofphp/php-cs-fixer": "^2.2",
+        "phpdocumentor/phpdocumentor": "2.*",
+        "phpunit/phpunit": "^4.8 || ^5.7",
+    },
+    "suggest": {
+    },
+    "autoload": {
+        "psr-4": {
+            "machinebox\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "machinebox\\Test\\": "phpunit_test/"
+        }
+    },
+    "license": "FreeFoodLicense"
+}
