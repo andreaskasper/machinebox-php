@@ -47,7 +47,7 @@ final class ClassificationboxTest extends TestCase {
 			$this->assertTrue($r);
 			
 			$r = $box->listmodels();
-			$this->assertHasKey("sprache01", $r);
+			$this->assertArrayHasKey("sprache01", $r);
 			$this->assertCount(1, $r); //1 Ergebnis
 
 			$box->usemodel("sprache01");
