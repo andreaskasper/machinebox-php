@@ -39,7 +39,7 @@ class classificationbox {
 	}
 	
 	public function teach($class = 1, inputlist $inputs = null) {
-		if ($model_id == null) throw new Exception("No Model in use for teaching");
+		if ($model_id == null) throw new \Exception("No Model in use for teaching");
 		$w = array();
 		$w["class"] = $class;
 		$w["inputy"] = $inputs->toArray();
@@ -94,7 +94,7 @@ class classificationbox {
 		curl_setopt($ch, CURLOPT_CUSTOMREQUEST, $method);
 		if ($data != null) curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($data));
 		curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-		if ($this->verbose) echo($this->boxurl.$path.PHP_EOL.json_encode($data).PHP_EOL);
+		if ($this->verbose) echo($method."  ".$this->boxurl.$path.PHP_EOL.json_encode($data).PHP_EOL);
 		$result = curl_exec($ch);
 		$info = curl_getinfo($ch);
 		if ($this->verbose) echo($info["http_code"]." - ".$result.PHP_EOL);
