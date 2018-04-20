@@ -10,12 +10,10 @@ class classificationbox {
 	
 	private $boxurl = null;
 	private $model_id = null;
-	
-	public $verbose = false;
 
 	public function __construct($boxurl, $model_id = null) {
 		$this->boxurl = $boxurl;
-		if ($model_id != null) $this->usemodel($model_id);
+		if ($model_id != null) $this->useModel($model_id);
 	}
 	
 	public function usemodel($model_id) {
@@ -35,12 +33,12 @@ class classificationbox {
 		} catch (\Exception $ex) {
 			return false;
 		}
-		$this->usemodel($model_id);
+		$this->useModel($model_id);
 		return true;
 	}
 	
 	public function teach($class = 1, inputlist $inputs = null) {
-		if ($this->model_id == null) throw new \Exception("No Model in use for teaching");
+		if ($model_id == null) throw new Exception("No Model in use for teaching");
 		$w = array();
 		$w["class"] = $class;
 		$w["inputy"] = $inputs->toArray();
@@ -49,17 +47,23 @@ class classificationbox {
 	}
 	
 	public function predict(inputlist $inputs = null, $limit = 10) {
-		if ($this->model_id == null) throw new Exception("No Model in use for prediction");
+		if ($model_id == null) throw new Exception("No Model in use for teaching");
 		$w = array();
 		$w["limit"] = $limit;
 		$w["inputy"] = $inputs->toArray();
-		$resp = $this->jsonRequest("POST", "/classificationbox/models/".$this->model_id."/predict", $w);
-		return $resp["classes"];
+		$resp = $this->jsonRequest("POST", "/classificationbox/models/".$this->model_id."/teach", $w);
+		return $resp["success"];
 	}
 	
+	/**
+	  * Lists all models on the machinebox
+	  *
+	  * @return Array  Associative Array of all models id, name, box
+	  */
 	public function listmodels() {
 		$out = array();
 		$resp = $this->jsonRequest("GET", "/classificationbox/models");
+		if (!isset($resp["success"]) OR !$resp["success"] OR !isset($resp["models"]) OR !is_array($resp["models"])) throw new \Exception("Machinebox-Error while listing");
 		foreach ($resp["models"] as $row) {
 			$row["box"] = new classificationbox($this->boxurl, $row["id"]);
 			$out[$row["id"]] = $row;
@@ -89,10 +93,8 @@ class classificationbox {
 		curl_setopt($ch, CURLOPT_CUSTOMREQUEST, $method);
 		if ($data != null) curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($data));
 		curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-		if ($this->verbose) echo($this->boxurl.$path.PHP_EOL.json_encode($data).PHP_EOL);
 		$result = curl_exec($ch);
 		$info = curl_getinfo($ch);
-		if ($this->verbose) echo($info["http_code"]." - ".$result.PHP_EOL);
 		if ($info["http_code"] == 400) throw new \Exception($result);
 		curl_close($ch);
 
