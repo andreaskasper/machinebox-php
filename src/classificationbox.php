@@ -39,7 +39,7 @@ class classificationbox {
 	}
 	
 	public function teach($class = 1, inputlist $inputs = null) {
-		if ($model_id == null) throw new \Exception("No Model in use for teaching");
+		if ($this->model_id == null) throw new \Exception("No Model in use for teaching");
 		$w = array();
 		$w["class"] = $class;
 		$w["inputy"] = $inputs->toArray();
@@ -48,7 +48,7 @@ class classificationbox {
 	}
 	
 	public function predict(inputlist $inputs = null, $limit = 10) {
-		if ($model_id == null) throw new Exception("No Model in use for teaching");
+		if ($this->model_id == null) throw new Exception("No Model in use for teaching");
 		$w = array();
 		$w["limit"] = $limit;
 		$w["inputy"] = $inputs->toArray();
