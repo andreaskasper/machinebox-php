@@ -10,6 +10,7 @@ class classificationbox {
 	
 	private $boxurl = null;
 	private $model_id = null;
+	public $verbose = false;
 
 	public function __construct($boxurl, $model_id = null) {
 		$this->boxurl = $boxurl;
@@ -93,8 +94,10 @@ class classificationbox {
 		curl_setopt($ch, CURLOPT_CUSTOMREQUEST, $method);
 		if ($data != null) curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($data));
 		curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+		if ($this->verbose) echo($this->boxurl.$path.PHP_EOL.json_encode($data).PHP_EOL);
 		$result = curl_exec($ch);
 		$info = curl_getinfo($ch);
+		if ($this->verbose) echo($info["http_code"]." - ".$result.PHP_EOL);
 		if ($info["http_code"] == 400) throw new \Exception($result);
 		curl_close($ch);
 
