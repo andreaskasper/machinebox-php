@@ -6,7 +6,7 @@
  *
  * @license   http://www.gnu.org/copyleft/lesser.html GNU Lesser General Public License
  */
-namespace machinebox-php\\Test;
+namespace machinebox\Test;
 
 /**
  * Maschinebox.io Machinebox-Test
