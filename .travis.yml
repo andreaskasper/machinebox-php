@@ -9,6 +9,7 @@ cache:
 
 before_install:
   - docker run -d -p 127.0.0.1:8081:8080 -e "MB_KEY=M2JjMjZjMzdhMDRlYzU3MWZiZDc3MDBmODE0ZTNmNmQ.vb4Zy2z028B125tFoMj9JPQlj8gEtk5HxatAf5YDUut-W6TcSHhIIPHAmSxVhNeSYvBl1M5pE4BJCCC5oFcSvg" machinebox/classificationbox:latest
+  - docker run -d -p 127.0.0.1:8082:8080 -e "MB_KEY=M2JjMjZjMzdhMDRlYzU3MWZiZDc3MDBmODE0ZTNmNmQ.vb4Zy2z028B125tFoMj9JPQlj8gEtk5HxatAf5YDUut-W6TcSHhIIPHAmSxVhNeSYvBl1M5pE4BJCCC5oFcSvg" machinebox/suggestionbox:latest
   - docker ps -a
 
 install:

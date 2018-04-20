@@ -18,7 +18,7 @@ use machinebox\inputlist;
 final class ClassificationboxTest extends TestCase {
 	
 	
-	public function box_runs() {
+	public function test1() {
 		$str = file_get_contents("http://127.0.0.1:8081/info");
 		$this->assertNotEquals("", $str);
 		$json = json_decode($str, true);
@@ -27,7 +27,7 @@ final class ClassificationboxTest extends TestCase {
 		$this->assertEquals("ready", $json["status"]);
 	}
 	
-	public function test1() {
+	public function test2() {
 			$box = new \machinebox\classificationbox("http://127.0.0.1:8081");
 			$box->verbose = true;
 			$r = $box->createmodel("sprache01", "Spracherkennung", array("english","deutsch"));
