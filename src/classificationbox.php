@@ -48,12 +48,12 @@ class classificationbox {
 	}
 	
 	public function predict(inputlist $inputs = null, $limit = 10) {
-		if ($this->model_id == null) throw new Exception("No Model in use for teaching");
+		if ($this->model_id == null) throw new Exception("No Model in use for predicting");
 		$w = array();
 		$w["limit"] = $limit;
 		$w["inputy"] = $inputs->toArray();
 		$resp = $this->jsonRequest("POST", "/classificationbox/models/".$this->model_id."/predict", $w);
-		return $resp["success"];
+		return $resp["classes"];
 	}
 	
 	/**
