@@ -8,6 +8,8 @@
  */
 namespace machinebox\Test;
 
+use PHPUnit\Framework\TestCase;
+
 /**
  * Maschinebox.io Machinebox-Test
  */
