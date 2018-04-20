@@ -16,7 +16,7 @@ use PHPUnit\Framework\TestCase;
 final class ClassificationboxTest extends TestCase {
 	
 	public function test1() {
-		$cb = new \machinebox-php\classificationbox("http://127.0.0.1:8081");
+		$cb = new \machinebox\classificationbox("http://127.0.0.1:8081");
 		$cb->createmodel("test1", "Classificationbox Test", array("blau", "rot", "gelb"));
 		$this->assertTrue(true);
 	}
