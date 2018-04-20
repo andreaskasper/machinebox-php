@@ -21,6 +21,10 @@ final class ClassificationboxTest extends TestCase {
 			$box = new \machinebox\classificationbox("http://127.0.0.1:8081");
 			$r = $box->createmodel("sprache01", "Spracherkennung", array("english","deutsch"));
 			$this->assertTrue($r);
+			
+			$r = $box->listmodels();
+			$this->assertHasKey("sprache01", $r);
+			$this->assertCount(1, $r); //1 Ergebnis
 
 			$box->usemodel("sprache01");
 
@@ -38,7 +42,7 @@ final class ClassificationboxTest extends TestCase {
 			$input->add("text", "Welche Sprache hat dieser Satz?");
 			$out = $box->predict($input);
 			
-			$this->assertEquals(2, count($out)); //2 Ergebnisse
+			$this->assertCount(2, $out); //2 Ergebnisse
 			
 			$r = $box->deletemodel("sprache01");
 			$this->assertTrue($r);
