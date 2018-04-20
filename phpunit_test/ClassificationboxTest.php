@@ -66,6 +66,8 @@ final class ClassificationboxTest extends TestCase {
 			$input->add("text", "Welche Sprache hat dieser Satz?");
 			$out = $box->predict($input);
 			
+			print_r($out);
+			
 			$this->assertCount(2, $out); //2 Ergebnisse
 			
 			$r = $box->deletemodel("sprache01");
