@@ -21,7 +21,7 @@ final class ClassificationboxTest extends TestCase {
 		$a = 0;
 		while (true) {
 			$str = @file_get_contents("http://127.0.0.1:8081/info");
-		if (strpos($str, "}") !== FALSE) {
+		if (strpos($str, "}") !== FALSE AND $json["status"] == "ready") {
 			$this->assertTrue(true);
 			return;
 			}
