@@ -52,7 +52,7 @@ class classificationbox {
 		$w = array();
 		$w["limit"] = $limit;
 		$w["inputy"] = $inputs->toArray();
-		$resp = $this->jsonRequest("POST", "/classificationbox/models/".$this->model_id."/teach", $w);
+		$resp = $this->jsonRequest("POST", "/classificationbox/models/".$this->model_id."/predict", $w);
 		return $resp["success"];
 	}
 	
