@@ -10,14 +10,14 @@
     ],
     "require": {
         "php": ">=5.4.0",
-        "ext-ctype": "*"
+        "ext-ctype": "*",
+        "ext-filter": "*"
     },
     "require-dev": {
-        "friendsofphp/php-cs-fixer": "^2.2",
-        "phpdocumentor/phpdocumentor": "2.*",
         "phpunit/phpunit": "^4.8 || ^5.7"
     },
     "suggest": {
+		"psr/log": "For optional PSR-3 debug logging"
     },
     "autoload": {
         "psr-4": {
