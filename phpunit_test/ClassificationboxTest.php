@@ -17,6 +17,16 @@ use machinebox\inputlist;
  */
 final class ClassificationboxTest extends TestCase {
 	
+	
+	public function box_runs() {
+		$str = file_get_contents("http://127.0.0.1:8081/info");
+		$this->assertNotEquals("", $str);
+		$json = json_decode($str, true);
+		$this->asserttRUE($json["success"]);
+		$this->assertEquals("classificationbox", $json["name"]);
+		$this->assertEquals("ready", $json["status"]);
+	}
+	
 	public function test1() {
 			$box = new \machinebox\classificationbox("http://127.0.0.1:8081");
 			$box->verbose = true;
