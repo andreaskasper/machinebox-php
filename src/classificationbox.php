@@ -6,11 +6,10 @@
   
 namespace machinebox;
 
-class classificationbox {
+class classificationbox extends machinebox {
 	
-	private $boxurl = null;
 	private $model_id = null;
-	public $verbose = false;
+	
 
 	public function __construct($boxurl, $model_id = null) {
 		$this->boxurl = $boxurl;
@@ -20,6 +19,21 @@ class classificationbox {
 	public function usemodel($model_id) {
 		$this->model_id = $model_id;
 		return true;
+	}
+	
+	public function __get($name) {
+		switch ($name) {
+			case "examples": 
+				if ($this->model_id == null) throw new \Exception("Kein Model gewählt");
+				$a = $this->jsonRequest("GET", "/classificationbox/models/".$this->model_id."/stats");
+				return $a["examples"];
+			case "predictions":
+				case "examples": 
+				if ($this->model_id == null) throw new \Exception("Kein Model gewählt");
+				$a = $this->jsonRequest("GET", "/classificationbox/models/".$this->model_id."/stats");
+				return $a["predictions"];
+		}
+		return null;
 	}
 	
 	public function createmodel($model_id = null, $model_name = "MachineboxClassifierbox", Array $classes = array(0,1), $ngrams = 1, $skipgrams = 0) {
@@ -76,6 +90,12 @@ class classificationbox {
 		if ($id == null) $id = $this->model_id;
 		if ($id == null) throw new \Exception("No model for deletion specified");
 		$resp = $this->jsonRequest("DELETE", "/classificationbox/models/".$id);
+		return true;
+	}
+	
+	public function deleteallmodels() {
+		$rows = $this->listmodels();
+		foreach ($rows as $row) $this->deletemodel($row["id"]);
 		return true;
 	}
 	

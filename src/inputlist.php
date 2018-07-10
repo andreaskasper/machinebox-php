@@ -6,8 +6,8 @@ class inputlist {
 	
 	private $data = array();
 
-	public function add($key, $value) {
-		$this->data[] = array("key" => $key, "value" => $value);
+	public function add($key, $type = "text", $value) {
+		$this->data[] = array("key" => $key, "type" => $type, "value" => $value);
 	}
 	
 	public function clear() {
@@ -17,9 +17,8 @@ class inputlist {
 	public function toArray() {
 		$out = array();
 		foreach ($this->data as $row) {
-			if (is_string($row["value"])) $out[] = array("key" => $row["key"], "type" => "text", "value" => $row["value"]);
-			elseif (is_numeric($row["value"])) $out[] = array("key" => $row["key"], "type" => "number", "value" => $row["value"]);
-			//TODO: Objects
+			$out[] = array("key" => $row["key"], "type" => $row["type"], "value" => $row["value"]);
+			
 		}
 		return $out;
 	}
